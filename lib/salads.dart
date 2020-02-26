@@ -2,191 +2,157 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as Convert;
 
-
 List<Map> lstFin = [];
 var icons;
 
-class salads extends StatefulWidget
-{
+class salads extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return _salads();
   }
-
 }
 
-class _salads extends State<salads>
-{
+class _salads extends State<salads> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-
       home: Scaffold(
-
-        body:FutureBuilder(
-
+        body: FutureBuilder(
             future: dataload(),
+            builder: (context, snapshot) {
+              if (snapshot.data != null) {
+                return ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      if (snapshot.data[index]["dish_Type"] == 2) {
+                        icons = Icon(
+                          Icons.radio_button_checked,
+                          color: Colors.green,
+                          size: 20,
+                        );
+                      } else {
+                        icons = Icon(
+                          Icons.radio_button_checked,
+                          color: Colors.red,
+                          size: 20,
+                        );
+                      }
 
-    builder: (context,snapshot)
-    {
-
-      if(snapshot.data!=null)
-        {
-
-          return  ListView.builder(
-
-              itemBuilder: (BuildContext context,int index){
-
-                if (snapshot.data[index]["dish_Type"] == 2)
-                  {
-                     icons = Icon(Icons.radio_button_checked,color: Colors.green,size: 20,);
-                  }
-
-                else
-                {
-                   icons = Icon(Icons.radio_button_checked,color: Colors.red,size: 20,);
-                }
-
-                return Card
-                  (
-
-                    child: Container(
-
-                      height: 190,
-                      padding: EdgeInsets.only(top:10),
-
-                      child: Row(
-
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                        children: <Widget>[
-
-                          SizedBox(
-                        width: 2,
-                      ),
-
-                          icons,
-
-
-
-                          Column(
-
+                      return Card(
+                        child: Container(
+                          height: 190,
+                          padding: EdgeInsets.only(top: 10),
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
 
+                              icons,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    flex: 3,
+                                    child: Container(
+                                        width: 200,
+                                        child: Text(
+                                            snapshot.data[index]['dish_name'],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16))),
+                                  ),
+                                  Flexible(
+                                    flex: 2,
+                                    fit: FlexFit.tight,
+                                    child: Container(
 
+                                      width: 217,
 
-                              Flexible(
+                                      child: Row(
 
-                                fit:FlexFit.loose,
-                                flex:3,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                                child: Container(
+                                        children: <Widget>[
 
-                                  width:200,
+                                          Text(
+                                          (snapshot.data[index]['dish_currency'] +
+                                              " " +
+                                              snapshot.data[index]['dish_price']
+                                                  .toString()),
+                                        ),
 
-                                    child: Text(snapshot.data[index]['dish_name'],style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 16))),
-                              ),
-
-
-                              Flexible(
-
-                                 flex: 2,
-                                 fit: FlexFit.tight,
-
-                                  child: Text((snapshot.data[index]['dish_currency']+" "+snapshot.data[index]['dish_price'].toString()))),
-
-
-                              Flexible(
-
-                                flex: 7,
-                                fit: FlexFit.loose,
-
-                                child: Container(
-
-                                  width: 220,
-
-
-
-                                      child: Text(snapshot.data[index]['dish_description'],style:TextStyle(color: Colors.grey),)),
-                              ),
-
-
-
-                            ],
-
-                          ),
-
-
-                          Container(
-
-
-
-                            width: 70,
-                             height: 70,
-
-                              child: Image.network(snapshot.data[index]['dish_image'],fit: BoxFit.fill,),),
+                                          Text(
+                                            snapshot.data[index]['dish_calories']
+                                                .toString() +" "+ 'calories',
+                                            style: TextStyle(
+                                                color: Colors.black, fontSize: 11,fontWeight:FontWeight.bold),
+                                          ),
 
 
                         ],
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    flex: 7,
+                                    fit: FlexFit.loose,
+                                    child: Container(
+                                        width: 220,
+                                        child: Text(
+                                          snapshot.data[index]
+                                              ['dish_description'],
+                                          style: TextStyle(color: Colors.grey),
+                                        )),
+                                  ),
+                                ],
+                              ),
 
-                      ),
-                    ),
-
-
-                );
-
-
-
-              },
-
-              itemCount: lstFin.length);
-
-        }return Center(child: CircularProgressIndicator(),);
-
-
-    }
-
-
-      ),
+                              Flexible(
+                                flex: 2,
+                                fit: FlexFit.loose,
+                                child: Container(
+                                  width: 70,
+                                  height: 70,
+                                  child: Image.network(
+                                    snapshot.data[index]['dish_image'],
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: lstFin.length);
+              }
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
       ),
     );
   }
-
 }
 
-
-Future<List<Map>> dataload() async
-{
-
+Future<List<Map>> dataload() async {
   var url = "http://www.mocky.io/v2/5dfccffc310000efc8d2c1ad";
   var chkUrl = await http.get(url);
 
   lstFin.clear();
 
-  if(chkUrl.statusCode == 200)
-    {
+  if (chkUrl.statusCode == 200) {
+    var jsonResp = Convert.jsonDecode(chkUrl.body);
+    var resp = jsonResp[0]["table_menu_list"];
+    var finResp = resp[0]["category_dishes"];
 
-
-      var jsonResp = Convert.jsonDecode(chkUrl.body);
-      var resp = jsonResp[0]["table_menu_list"];
-      var finResp = resp[0]["category_dishes"];
-
-
-      for(var finResp in finResp)
-        {
-
-          lstFin.add(finResp);
-
-        }
-
+    for (var finResp in finResp) {
+      lstFin.add(finResp);
     }
-
+  }
 
   return lstFin;
-
 }
