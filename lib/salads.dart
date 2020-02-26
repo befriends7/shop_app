@@ -52,21 +52,77 @@ class _salads extends State<salads>
                 return Card
                   (
 
-
                     child: Container(
 
                       height: 190,
+                      padding: EdgeInsets.only(top:10),
 
-                      child: Column(
+                      child: Row(
 
                         crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: <Widget>[
 
+                          SizedBox(
+                        width: 10,
+                      ),
 
                           icons,
-                          Text(snapshot.data[index]['dish_name'],style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                          Text((snapshot.data[index]['dish_currency']+" "+snapshot.data[index]['dish_price'].toString()))
+
+                          SizedBox(
+
+                            width: 4,
+                          ),
+
+                          Column(
+
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: <Widget>[
+
+
+
+                              Flexible(
+
+                                fit:FlexFit.loose,
+                                flex:3,
+
+                                child: Container(
+
+                                  width:200,
+
+                                    child: Text(snapshot.data[index]['dish_name'],style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 16))),
+                              ),
+
+
+                              Flexible(
+
+                                 flex: 2,
+                                 fit: FlexFit.tight,
+
+                                  child: Text((snapshot.data[index]['dish_currency']+" "+snapshot.data[index]['dish_price'].toString()))),
+
+
+                              Flexible(
+
+                                flex: 7,
+                                fit: FlexFit.loose,
+
+                                child: Container(
+
+                                  width: 220,
+
+
+
+                                      child: Text(snapshot.data[index]['dish_description'],style:TextStyle(color: Colors.grey),)),
+                              ),
+
+
+
+                            ],
+
+                          )
+
 
 
 
@@ -104,6 +160,8 @@ Future<List<Map>> dataload() async
 
   var url = "http://www.mocky.io/v2/5dfccffc310000efc8d2c1ad";
   var chkUrl = await http.get(url);
+
+  lstFin.clear();
 
   if(chkUrl.statusCode == 200)
     {
