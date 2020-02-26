@@ -5,6 +5,7 @@ import 'dart:convert' as Convert;
 List<Map> lstFin = [];
 var icons;
 
+
 class salads extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -14,6 +15,9 @@ class salads extends StatefulWidget {
 }
 
 class _salads extends State<salads> {
+
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -47,7 +51,6 @@ class _salads extends State<salads> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-
                               icons,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,36 +71,36 @@ class _salads extends State<salads> {
                                     flex: 2,
                                     fit: FlexFit.tight,
                                     child: Container(
-
                                       width: 217,
-
                                       child: Row(
-
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-
                                           Text(
-                                          (snapshot.data[index]['dish_currency'] +
-                                              " " +
-                                              snapshot.data[index]['dish_price']
-                                                  .toString()),
-                                        ),
-
-                                          Text(
-                                            snapshot.data[index]['dish_calories']
-                                                .toString() +" "+ 'calories',
-                                            style: TextStyle(
-                                                color: Colors.black, fontSize: 11,fontWeight:FontWeight.bold),
+                                            (snapshot.data[index]
+                                                    ['dish_currency'] +
+                                                " " +
+                                                snapshot.data[index]
+                                                        ['dish_price']
+                                                    .toString()),
                                           ),
-
-
-                        ],
+                                          Text(
+                                            snapshot.data[index]
+                                                        ['dish_calories']
+                                                    .toString() +
+                                                " " +
+                                                'calories',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                   Flexible(
-                                    flex: 7,
+                                    flex: 6,
                                     fit: FlexFit.loose,
                                     child: Container(
                                         width: 220,
@@ -107,9 +110,29 @@ class _salads extends State<salads> {
                                           style: TextStyle(color: Colors.grey),
                                         )),
                                   ),
+                                  Flexible(
+                                    flex: 4,
+                                    fit: FlexFit.loose,
+                                    child: Container(
+
+                                      height: 35,
+                                      width: 120,
+                                      margin: EdgeInsets.only(
+                                          top: 10),
+                                      decoration: new BoxDecoration(
+                                        color: Color(0xff32CD32),
+                                        border: Border.all(
+                                            color: Colors.black, width: 0.0),
+                                        borderRadius: new BorderRadius.all(
+                                            Radius.elliptical(90, 80)),
+                                      ),
+                                      child:
+
+                                      counterWidget()
+                                    ),
+                                  ),
                                 ],
                               ),
-
                               Flexible(
                                 flex: 2,
                                 fit: FlexFit.loose,
@@ -155,4 +178,72 @@ Future<List<Map>> dataload() async {
   }
 
   return lstFin;
+}
+
+class counterWidget extends StatefulWidget
+{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _counterWidget();
+  }
+
+}
+
+
+class _counterWidget extends State<counterWidget>
+{
+  var _defaultValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return  Row(
+
+      mainAxisAlignment: MainAxisAlignment.center,
+
+      children: <Widget>[
+
+
+        IconButton(
+
+          onPressed: ()
+
+          {
+
+            setState(() {
+
+              _defaultValue ++;
+
+            });
+
+          },
+
+          icon: Icon(Icons.add,color: Colors.white,),
+
+        ),
+
+        Text(_defaultValue.toString(),style: TextStyle(color: Colors.white),),
+
+        IconButton(
+
+          onPressed: ()
+          {
+            setState(() {
+
+              if(_defaultValue!= 0) {
+                _defaultValue --;
+              }
+            });
+          },
+
+          icon: Icon(Icons.remove,color: Colors.white,),
+
+        )
+
+      ],
+
+    );
+  }
+
 }
