@@ -6,6 +6,7 @@ import 'package:shop_app/fresh.dart';
 import 'package:shop_app/bir.dart';
 import 'package:shop_app/fastfod.dart';
 import 'package:badges/badges.dart';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(MyApp());
 
