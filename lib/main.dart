@@ -6,27 +6,36 @@ import 'package:shop_app/fresh.dart';
 import 'package:shop_app/bir.dart';
 import 'package:shop_app/fastfod.dart';
 import 'package:badges/badges.dart';
-import 'package:http/http.dart' as http;
 
 void main() => runApp(MyApp());
+
+int cartBadg = 0;
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return dataload();
+    return dataloads();
   }
 }
 
-class dataload extends StatefulWidget {
+class dataloads extends StatefulWidget {
+
+
+
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _dataload();
+    return _dataloads();
   }
 }
 
-class _dataload extends State<dataload> {
+class _dataloads extends State<dataloads>
+{
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -44,7 +53,7 @@ class _dataload extends State<dataload> {
                       }),
                   title: Text('UNI Resto Cafe',
                       style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.bold)),
+                          color: Colors.grey, fontWeight: FontWeight.bold,fontSize: 17)),
                   actions: <Widget>[
                     Container(
                         padding: EdgeInsets.fromLTRB(0.0, 19.0, 18.0, 0.0),
@@ -57,12 +66,7 @@ class _dataload extends State<dataload> {
                         padding: EdgeInsets.only(right: 10.0),
                         child: Container(
                           padding: EdgeInsets.fromLTRB(0.0, 19.0, 10.0, 0.0),
-                          child: Badge(
-                              badgeContent: Text('4'),
-                              child: Icon(
-                                Icons.shopping_cart,
-                                color: Colors.grey,
-                              )),
+                          child: cartNot(),
                         ))
                   ],
                   bottom: TabBar(
@@ -77,7 +81,7 @@ class _dataload extends State<dataload> {
                         Tab(
                           text: 'From the Barnyard',
                         ),
-                        Tab(text: ' Hen House'),
+                        Tab(text: ' From the Hen House'),
                         Tab(text: 'Fresh From Sea'),
                         Tab(text: 'Biriyani'),
                         Tab(text: 'Fast Food'),
@@ -95,3 +99,46 @@ class _dataload extends State<dataload> {
             )));
   }
 }
+
+
+
+
+
+
+class cartNot extends StatefulWidget
+{
+
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _carNot();
+  }
+
+}
+
+class _carNot extends State<cartNot>
+{
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Badge(
+
+
+
+        badgeContent: Text(cartBadg.toString()),
+        child: Icon(
+          Icons.shopping_cart,
+          color: Colors.grey,
+        ));
+    
+  }
+
+}
+
+
+
+

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as Convert;
+import 'package:badges/badges.dart';
+import 'main.dart';
 
 List<Map> lstFin = [];
 var icons;
+var defaultValue = 0;
+String chkVal;
+int count = 0;
+
 
 
 class salads extends StatefulWidget {
@@ -23,12 +29,20 @@ class _salads extends State<salads> {
     // TODO: implement build
     return MaterialApp(
       home: Scaffold(
+
+
         body: FutureBuilder(
             future: dataload(),
             builder: (context, snapshot) {
               if (snapshot.data != null) {
+
+
+
                 return ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
+
+                      List chkVal = snapshot.data[index]['addonCat'];
+
                       if (snapshot.data[index]["dish_Type"] == 2) {
                         icons = Icon(
                           Icons.radio_button_checked,
@@ -45,7 +59,7 @@ class _salads extends State<salads> {
 
                       return Card(
                         child: Container(
-                          height: 190,
+                          height: 200,
                           padding: EdgeInsets.only(top: 10),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,6 +117,9 @@ class _salads extends State<salads> {
                                     flex: 6,
                                     fit: FlexFit.loose,
                                     child: Container(
+
+                                      padding: EdgeInsets.only(top:7),
+
                                         width: 220,
                                         child: Text(
                                           snapshot.data[index]
@@ -131,6 +148,24 @@ class _salads extends State<salads> {
                                       counterWidget()
                                     ),
                                   ),
+
+
+                                    Flexible(
+
+                                    flex:2,
+                                    fit:FlexFit.loose,
+
+                                    child: Container(
+
+
+
+                                       padding: EdgeInsets.only(top: 8),
+
+                                        child: chkVal.length!=0 ?Text('Customization Available',style: TextStyle(color: Colors.red)) : Text("")
+
+                                    ),
+
+                                  )
                                 ],
                               ),
                               Flexible(
@@ -177,6 +212,9 @@ Future<List<Map>> dataload() async {
     }
   }
 
+  var k = lstFin;
+  var j = k;
+
   return lstFin;
 }
 
@@ -193,7 +231,12 @@ class counterWidget extends StatefulWidget
 
 class _counterWidget extends State<counterWidget>
 {
-  var _defaultValue = 0;
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -207,23 +250,27 @@ class _counterWidget extends State<counterWidget>
 
         IconButton(
 
+
           onPressed: ()
 
           {
 
             setState(() {
 
-              _defaultValue ++;
+              if(defaultValue!=0) {
+                defaultValue --;
+              }
+
 
             });
 
           },
 
-          icon: Icon(Icons.add,color: Colors.white,),
+          icon: Icon(Icons.remove,color: Colors.white,),
 
         ),
 
-        Text(_defaultValue.toString(),style: TextStyle(color: Colors.white),),
+        Text(defaultValue.toString(),style: TextStyle(color: Colors.white)),
 
         IconButton(
 
@@ -231,13 +278,14 @@ class _counterWidget extends State<counterWidget>
           {
             setState(() {
 
-              if(_defaultValue!= 0) {
-                _defaultValue --;
-              }
+
+                defaultValue ++;
+
+
             });
           },
 
-          icon: Icon(Icons.remove,color: Colors.white,),
+          icon: Icon(Icons.add,color: Colors.white,),
 
         )
 
@@ -247,3 +295,6 @@ class _counterWidget extends State<counterWidget>
   }
 
 }
+
+
+
