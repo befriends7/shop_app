@@ -60,19 +60,17 @@ class _salads extends State<salads>
                       child: Row(
 
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                         children: <Widget>[
 
                           SizedBox(
-                        width: 10,
+                        width: 2,
                       ),
 
                           icons,
 
-                          SizedBox(
 
-                            width: 4,
-                          ),
 
                           Column(
 
@@ -121,10 +119,17 @@ class _salads extends State<salads>
 
                             ],
 
-                          )
+                          ),
+
+
+                          Container(
 
 
 
+                            width: 70,
+                             height: 70,
+
+                              child: Image.network(snapshot.data[index]['dish_image'],fit: BoxFit.fill,),),
 
 
                         ],
