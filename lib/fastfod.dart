@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'list.dart';
 
 class fastfod extends StatefulWidget
 {
@@ -21,7 +22,7 @@ class _fastfod extends State<fastfod>
 
         body: Center(
 
-          child: Text('Fast Food'),
+          child: list(url: "http://www.mocky.io/v2/5dfccffc310000efc8d2c1ad", path: 5),
 
         ),
 

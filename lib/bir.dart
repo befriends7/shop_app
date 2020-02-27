@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'list.dart';
 
 class bir extends StatefulWidget
 {
@@ -21,7 +22,7 @@ class _bir extends State<bir>
 
         body: Center(
 
-          child: Text('Biriyani'),
+          child: list(url: "http://www.mocky.io/v2/5dfccffc310000efc8d2c1ad", path: 4),
 
         ),
 

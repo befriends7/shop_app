@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'list.dart';
+
+
 
 class barn extends StatefulWidget
 {
@@ -19,11 +22,9 @@ class _barn extends State<barn>
 
       home: Scaffold(
 
-        body: Center(
+        body:list(url: 'http://www.mocky.io/v2/5dfccffc310000efc8d2c1ad',path: 1)
 
-          child: Text('Barn'),
-
-        ),
+        
 
       ),
 
@@ -31,3 +32,5 @@ class _barn extends State<barn>
   }
 
 }
+
+
